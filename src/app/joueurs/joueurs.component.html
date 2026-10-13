@@ -1,0 +1,68 @@
+<div class="card mt-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h2>Liste des Joueurs</h2>
+    <button class="btn btn-success" (click)="toggleForm()">
+      {{ showForm ? '❌ Annuler' : '➕ Ajouter' }}
+    </button>
+  </div>
+
+  <div class="card-body">
+
+    <!-- 🟢 Formulaire inline (yetla3 ghir kif showForm = true) -->
+    <div *ngIf="showForm" class="border rounded p-3 mb-3 bg-light">
+      <h5>Ajouter un Joueur</h5>
+
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <label>CIN Joueur</label>
+          <input type="number" [(ngModel)]="newJoueurs.cin" class="form-control">
+        </div>
+        <div class="col-md-6 mb-2">
+          <label>Nom Joueur</label>
+          <input type="text" [(ngModel)]="newJoueurs.nomJoueur" class="form-control">
+        </div>
+        <div class="col-md-6 mb-2">
+          <label>Prénom Joueur</label>
+          <input type="text" [(ngModel)]="newJoueurs.prenomJoueur" class="form-control">
+        </div>
+        <div class="col-md-6 mb-2">
+          <label>Equipe Instant</label>
+          <input type="text" [(ngModel)]="newJoueurs.equipeInstant" class="form-control">
+        </div>
+        <div class="col-md-6 mb-2">
+          <label>Date Mercato</label>
+          <input type="date" [(ngModel)]="newJoueurs.dateMercato" class="form-control">
+        </div>
+      </div>
+
+      <button class="btn btn-success mt-2" (click)="addJoueur()">Ajouter</button>
+    </div>
+
+    <!-- 🟢 Tableau -->
+    <p><strong>Nombre : {{ joueurs.length }}</strong></p>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>CIN</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Equipe Instant</th>
+          <th>Date Mercato</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let j of joueurs; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ j.cin }}</td>
+          <td>{{ j.nomJoueur }}</td>
+          <td>{{ j.prenomJoueur }}</td>
+          <td>{{ j.equipeInstant }}</td>
+          <td>{{ j.dateMercato | date:'dd/MM/yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

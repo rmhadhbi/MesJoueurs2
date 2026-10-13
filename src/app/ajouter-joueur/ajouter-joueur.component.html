@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card mt-3">
+
+        <div class="card-header">
+          <h2>Ajouter un Joueur</h2>
+        </div>
+
+        <div class="card-body">
+
+          <div class="form-group mb-2">
+            <label>CIN Joueur</label>
+            <input type="number" [(ngModel)]="newJoueurs.cin" name="cin" class="form-control">
+          </div>
+
+          <div class="form-group mb-2">
+            <label>Nom Joueur</label>
+            <input type="text" [(ngModel)]="newJoueurs.nomJoueur" name="nomJoueur" class="form-control">
+          </div>
+
+          <div class="form-group mb-2">
+            <label>Prénom Joueur</label>
+            <input type="text" [(ngModel)]="newJoueurs.prenomJoueur" name="prenomJoueur" class="form-control">
+          </div>
+
+          <div class="form-group mb-2">
+            <label>Equipe Instant</label>
+            <input type="text" [(ngModel)]="newJoueurs.equipeInstant" name="equipeInstant" class="form-control">
+          </div>
+
+          <div class="form-group mb-2">
+            <label>Date Mercato</label>
+            <input type="date" [(ngModel)]="newJoueurs.dateMercato" name="dateMercato" class="form-control">
+          </div>
+
+          <button type="button" class="btn btn-success mt-2" (click)="addJoueur()">Ajouter</button>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
