@@ -1,0 +1,35 @@
+<div class="container mt-3">
+  <h2>Modifier un Joueur :</h2>
+
+  <form>
+    <div class="col-md-3 mb-2">
+      <label>CIN Joueur</label>
+      <input readonly type="number" [(ngModel)]="currentJoueur.cin" name="cin" class="form-control">
+    </div>
+
+    <div class="col-md-5 mb-2">
+      <label>Nom Joueur</label>
+      <input type="text" [(ngModel)]="currentJoueur.nomJoueur" name="nomJoueur" class="form-control">
+    </div>
+
+    <div class="col-md-5 mb-2">
+      <label>Prénom Joueur</label>
+      <input type="text" [(ngModel)]="currentJoueur.prenomJoueur" name="prenomJoueur" class="form-control">
+    </div>
+
+    <div class="col-md-5 mb-2">
+      <label>Equipe Instant</label>
+      <input type="text" [(ngModel)]="currentJoueur.equipeInstant" name="equipeInstant" class="form-control">
+    </div>
+
+    <div class="col-md-4 mb-2">
+      <label>Date Mercato</label>
+      <input type="date"
+             [ngModel]="currentJoueur.dateMercato | date:'yyyy-MM-dd'"
+             (ngModelChange)="currentJoueur.dateMercato = $event"
+             name="dateMercato" class="form-control">
+    </div>
+
+    <button type="submit" (click)="updateJoueur()" class="btn btn-success mt-2">Modifier</button>
+  </form>
+</div>

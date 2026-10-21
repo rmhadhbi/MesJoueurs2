@@ -22,4 +22,23 @@ export class JoueurService {
   ajouterJoueur(j: Joueur) {
     this.joueurs.push(j);
   }
+
+  supprimerJoueur(j: Joueur) {
+    const index = this.joueurs.indexOf(j, 0);
+    if (index > -1) {
+      this.joueurs.splice(index, 1);
+    }
+  }
+
+  consulterJoueur(cin: number): Joueur {
+    return this.joueurs.find(j => j.cin === cin)!;
+  }
+
+  updateJoueur(j: Joueur) {
+    const index = this.joueurs.indexOf(j, 0);
+    if (index > -1) {
+      this.joueurs.splice(index, 1);
+      this.joueurs.splice(index, 0, j);
+    }
+  }
 }

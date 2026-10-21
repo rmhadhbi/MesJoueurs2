@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { JoueursComponent } from './joueurs/joueurs.component';
-import { AjouterJoueurComponent } from './ajouter-joueur/ajouter-joueur.component';
+import { UpdateJoueurComponent } from './update-joueur/update-joueur.component';
 
 export const routes: Routes = [
   { path: 'joueurs', component: JoueursComponent },
-  { path: 'ajouter-joueur', component: AjouterJoueurComponent },
+  { path: 'updateJoueur/:id', component: UpdateJoueurComponent },
   { path: '', redirectTo: 'joueurs', pathMatch: 'full' }
 ];
