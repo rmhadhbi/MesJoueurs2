@@ -8,7 +8,6 @@
 
   <div class="card-body">
 
-    <!-- Formulaire inline (yetla3 ghir kif showForm = true) -->
     <div *ngIf="showForm" class="border rounded p-3 mb-3 bg-light">
       <h5>Ajouter un Joueur</h5>
 
@@ -26,6 +25,12 @@
           <input type="text" [(ngModel)]="newJoueurs.prenomJoueur" name="prenomJoueur" class="form-control">
         </div>
         <div class="col-md-6 mb-2">
+          <label>Poste</label>
+          <select class="form-control" id="idPoste" name="idPoste" [(ngModel)]="newIdPoste">
+            <option *ngFor="let p of postes" [ngValue]="p.idPoste">{{ p.nomPoste }}</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-2">
           <label>Equipe Instant</label>
           <input type="text" [(ngModel)]="newJoueurs.equipeInstant" name="equipeInstant" class="form-control">
         </div>
@@ -38,7 +43,6 @@
       <button class="btn btn-success mt-2" (click)="addJoueur()">Ajouter</button>
     </div>
 
-    <!-- Tableau -->
     <p><strong>Nombre : {{ joueurs.length }}</strong></p>
 
     <table class="table table-striped">
@@ -48,6 +52,7 @@
           <th>CIN</th>
           <th>Nom</th>
           <th>Prénom</th>
+          <th>Poste</th>
           <th>Equipe Instant</th>
           <th>Date Mercato</th>
           <th></th>
@@ -60,6 +65,7 @@
           <td>{{ j.cin }}</td>
           <td>{{ j.nomJoueur }}</td>
           <td>{{ j.prenomJoueur }}</td>
+          <td>{{ j.poste?.nomPoste }}</td>
           <td>{{ j.equipeInstant }}</td>
           <td>{{ j.dateMercato | date:'dd/MM/yyyy' }}</td>
           <td><a class="btn btn-danger" (click)="supprimerJoueur(j)">Supprimer</a></td>

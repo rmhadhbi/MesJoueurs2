@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Joueur } from '../model/Joueurs.model';
+import { Poste } from '../model/poste.model';
 import { JoueurService } from '../joueur.service';
 
 @Component({
@@ -14,6 +15,8 @@ import { JoueurService } from '../joueur.service';
 export class UpdateJoueurComponent implements OnInit {
 
   currentJoueur = new Joueur();
+  postes: Poste[] = [];
+  updatedIdPoste!: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,12 +25,15 @@ export class UpdateJoueurComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.postes = this.joueurService.listePostes();
     this.currentJoueur = this.joueurService.consulterJoueur(
       Number(this.activatedRoute.snapshot.params['id'])
     );
+    this.updatedIdPoste = this.currentJoueur.poste?.idPoste!;
   }
 
   updateJoueur(): void {
+    this.currentJoueur.poste = this.joueurService.consulterPoste(this.updatedIdPoste);
     this.joueurService.updateJoueur(this.currentJoueur);
     this.router.navigate(['joueurs']);
   }

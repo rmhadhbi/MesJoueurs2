@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="col-md-4 mb-4">
+    <label>Postes</label>
+    <select class="form-control form-control-lg" id="idPoste" name="idPoste"
+            [(ngModel)]="idPoste" (change)="onChange()">
+      <option [ngValue]="0">Tous les postes</option>
+      <option *ngFor="let p of postes" [ngValue]="p.idPoste">{{ p.nomPoste }}</option>
+    </select>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>CIN</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Poste</th>
+            <th>Equipe Instant</th>
+            <th>Date Mercato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let j of joueurs; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ j.cin }}</td>
+            <td>{{ j.nomJoueur }}</td>
+            <td>{{ j.prenomJoueur }}</td>
+            <td>{{ j.poste?.nomPoste }}</td>
+            <td>{{ j.equipeInstant }}</td>
+            <td>{{ j.dateMercato | date:'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="joueurs.length === 0" class="text-danger">Aucun joueur trouvé.</p>
+    </div>
+  </div>
+</div>

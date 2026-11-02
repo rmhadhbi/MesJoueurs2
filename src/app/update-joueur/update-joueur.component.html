@@ -18,6 +18,13 @@
     </div>
 
     <div class="col-md-5 mb-2">
+      <label>Poste</label>
+      <select class="form-control" id="idPoste" name="idPoste" [(ngModel)]="updatedIdPoste">
+        <option *ngFor="let p of postes" [ngValue]="p.idPoste">{{ p.nomPoste }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-5 mb-2">
       <label>Equipe Instant</label>
       <input type="text" [(ngModel)]="currentJoueur.equipeInstant" name="equipeInstant" class="form-control">
     </div>
