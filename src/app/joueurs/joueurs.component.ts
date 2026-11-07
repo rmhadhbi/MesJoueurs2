@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Joueur } from '../model/Joueurs.model';
 import { Poste } from '../model/poste.model';
 import { JoueurService } from '../joueur.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-joueurs',
@@ -22,7 +23,10 @@ export class JoueursComponent implements OnInit {
   newPoste!: Poste;
   showForm = false;
 
-  constructor(private joueurService: JoueurService) {}
+  constructor(
+    private joueurService: JoueurService,
+    public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.joueurs = this.joueurService.listeJoueurs();

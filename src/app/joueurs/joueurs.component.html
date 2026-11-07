@@ -1,14 +1,14 @@
 <div class="card mt-3">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h2>Liste des Joueurs</h2>
-    <button class="btn btn-success" (click)="toggleForm()">
+    <button *ngIf="authService.isAdmin()" class="btn btn-success" (click)="toggleForm()">
       {{ showForm ? '❌ Annuler' : '➕ Ajouter' }}
     </button>
   </div>
 
   <div class="card-body">
 
-    <div *ngIf="showForm" class="border rounded p-3 mb-3 bg-light">
+    <div *ngIf="showForm && authService.isAdmin()" class="border rounded p-3 mb-3 bg-light">
       <h5>Ajouter un Joueur</h5>
 
       <div class="row">
@@ -55,8 +55,8 @@
           <th>Poste</th>
           <th>Equipe Instant</th>
           <th>Date Mercato</th>
-          <th></th>
-          <th></th>
+          <th *ngIf="authService.isAdmin()"></th>
+          <th *ngIf="authService.isAdmin()"></th>
         </tr>
       </thead>
       <tbody>
@@ -68,8 +68,8 @@
           <td>{{ j.poste?.nomPoste }}</td>
           <td>{{ j.equipeInstant }}</td>
           <td>{{ j.dateMercato | date:'dd/MM/yyyy' }}</td>
-          <td><a class="btn btn-danger" (click)="supprimerJoueur(j)">Supprimer</a></td>
-          <td><a class="btn btn-success" [routerLink]="['/updateJoueur', j.cin]">Modifier</a></td>
+          <td *ngIf="authService.isAdmin()"><a class="btn btn-danger" (click)="supprimerJoueur(j)">Supprimer</a></td>
+          <td *ngIf="authService.isAdmin()"><a class="btn btn-success" [routerLink]="['/updateJoueur', j.cin]">Modifier</a></td>
         </tr>
       </tbody>
     </table>

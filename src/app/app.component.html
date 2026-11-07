@@ -1,15 +1,41 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a routerLink="/joueurs" class="navbar-brand">Mes Joueurs</a>
     <ul class="navbar-nav me-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/joueurs">Liste</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownJoueurs" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          Joueurs
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownJoueurs">
+          <li><a class="dropdown-item" routerLink="/joueurs">Lister</a></li>
+          <li *ngIf="authService.isAdmin()">
+            <a class="dropdown-item" routerLink="/add-joueur">Ajouter</a>
+          </li>
+        </ul>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/rechercheParPoste">Recherche Par Poste</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/rechercheParEquipe">Recherche Par Equipe</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          [{{authService.loggedUser}}]
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <li *ngIf="!authService.isloggedIn">
+            <a class="dropdown-item" routerLink="/login">Login</a>
+          </li>
+          <li *ngIf="authService.isloggedIn">
+            <a class="dropdown-item" (click)="onLogout()" style="cursor: pointer;">Logout</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>

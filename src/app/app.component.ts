@@ -1,22 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink,CommonModule],
+  imports: [RouterOutlet, RouterLink, CommonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'MesJoueurs';
-  joueurs!: string[];
 
-  constructor() {
-    this.joueurs = ["Messi", "Ronaldo", "Neymar"];
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) {}
+
+  onLogout() {
+    this.authService.logout();
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    let isloggedin: string;
+    let loggedUser: string;
+    isloggedin = localStorage.getItem('isloggedIn')!;
+    loggedUser = localStorage.getItem('loggedUser')!;
+    if (isloggedin != "true" || !loggedUser)
+      this.router.navigate(['/login']);
+    else
+      this.authService.setLoggedUserFromLocalStorage(loggedUser);
   }
 }
