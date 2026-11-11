@@ -1,47 +1,12 @@
 <div class="card mt-3">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h2>Liste des Joueurs</h2>
-    <button *ngIf="authService.isAdmin()" class="btn btn-success" (click)="toggleForm()">
-      {{ showForm ? '❌ Annuler' : '➕ Ajouter' }}
-    </button>
+    <a *ngIf="authService.isAdmin()" class="btn btn-success" routerLink="/add-joueur">
+      ➕ Ajouter Joueur
+    </a>
   </div>
 
   <div class="card-body">
-
-    <div *ngIf="showForm && authService.isAdmin()" class="border rounded p-3 mb-3 bg-light">
-      <h5>Ajouter un Joueur</h5>
-
-      <div class="row">
-        <div class="col-md-6 mb-2">
-          <label>CIN Joueur</label>
-          <input type="number" [(ngModel)]="newJoueurs.cin" name="cin" class="form-control">
-        </div>
-        <div class="col-md-6 mb-2">
-          <label>Nom Joueur</label>
-          <input type="text" [(ngModel)]="newJoueurs.nomJoueur" name="nomJoueur" class="form-control">
-        </div>
-        <div class="col-md-6 mb-2">
-          <label>Prénom Joueur</label>
-          <input type="text" [(ngModel)]="newJoueurs.prenomJoueur" name="prenomJoueur" class="form-control">
-        </div>
-        <div class="col-md-6 mb-2">
-          <label>Poste</label>
-          <select class="form-control" id="idPoste" name="idPoste" [(ngModel)]="newIdPoste">
-            <option *ngFor="let p of postes" [ngValue]="p.idPoste">{{ p.nomPoste }}</option>
-          </select>
-        </div>
-        <div class="col-md-6 mb-2">
-          <label>Equipe Instant</label>
-          <input type="text" [(ngModel)]="newJoueurs.equipeInstant" name="equipeInstant" class="form-control">
-        </div>
-        <div class="col-md-6 mb-2">
-          <label>Date Mercato</label>
-          <input type="date" [(ngModel)]="newJoueurs.dateMercato" name="dateMercato" class="form-control">
-        </div>
-      </div>
-
-      <button class="btn btn-success mt-2" (click)="addJoueur()">Ajouter</button>
-    </div>
 
     <p><strong>Nombre : {{ joueurs.length }}</strong></p>
 

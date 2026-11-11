@@ -59,7 +59,7 @@ export class JoueurService {
     return this.postes.find(p => p.idPoste == id)!;
   }
 
-  // Recherche par poste (remplace l'appel API "prodscat/{idCat}" du PDF)
+
   rechercherParPoste(idPoste: number): Joueur[] {
     if (!idPoste) {
       return this.joueurs;                 // 0 = tous les postes

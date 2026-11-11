@@ -41,7 +41,10 @@
             <input type="date" [(ngModel)]="newJoueurs.dateMercato" name="dateMercato" class="form-control">
           </div>
 
-          <button type="button" class="btn btn-success mt-2" (click)="addJoueur()">Ajouter</button>
+          <div class="d-flex gap-2 mt-3">
+            <button type="button" class="btn btn-success" (click)="addJoueur()">Ajouter</button>
+            <a routerLink="/joueurs" class="btn btn-secondary">Annuler</a>
+          </div>
 
         </div>
 
