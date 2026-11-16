@@ -1,0 +1,16 @@
+<form>
+  <div [hidden]="ajout">
+    <label>ID Poste</label>
+    <input type="text" [(ngModel)]="poste.idPoste" name="idPoste" class="form-control w-25">
+  </div>
+  <div>
+    <label>Nom Poste</label>
+    <input type="text" [(ngModel)]="poste.nomPoste" name="nomPoste" class="form-control"
+      placeholder="Entrez un nom de poste...">
+  </div>
+  <div class="mt-2">
+    <button type="submit" [disabled]="!poste.nomPoste" class="btn btn-success"
+      (click)="savePoste()">{{ajout ? 'Ajouter' : 'Modifier'}}
+    </button>
+  </div>
+</form>

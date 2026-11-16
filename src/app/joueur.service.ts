@@ -59,6 +59,34 @@ export class JoueurService {
     return this.postes.find(p => p.idPoste == id)!;
   }
 
+  ajouterPoste(p: Poste): Poste {
+    if (!p.idPoste || p.idPoste === 0) {
+      const maxId = this.postes.length > 0 ? Math.max(...this.postes.map(post => post.idPoste ?? 0)) : 0;
+      p.idPoste = maxId + 1;
+    }
+    this.postes.push({ ...p });
+    return p;
+  }
+
+  updatePoste(p: Poste) {
+    const index = this.postes.findIndex(post => post.idPoste == p.idPoste);
+    if (index > -1) {
+      this.postes[index] = { ...p };
+      this.joueurs.forEach(j => {
+        if (j.poste && j.poste.idPoste == p.idPoste) {
+          j.poste.nomPoste = p.nomPoste;
+        }
+      });
+    }
+  }
+
+  supprimerPoste(p: Poste) {
+    const index = this.postes.indexOf(p, 0);
+    if (index > -1) {
+      this.postes.splice(index, 1);
+    }
+  }
+
 
   rechercherParPoste(idPoste: number): Joueur[] {
     if (!idPoste) {

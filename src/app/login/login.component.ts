@@ -28,7 +28,6 @@ export class LoginComponent {
     if (isValidUser)
       this.router.navigate(['/']);
     else
-      // alert('Login ou mot de passe incorrecte!');
       this.erreur = 1;
   }
 

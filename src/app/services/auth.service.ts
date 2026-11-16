@@ -9,7 +9,7 @@ export class AuthService {
 
   users: User[] = [
     { "username": "admin", "password": "123", "roles": ['ADMIN'] },
-    { "username": "nadhem", "password": "123", "roles": ['USER'] }
+    { "username": "rayen", "password": "1212", "roles": ['USER'] }
   ];
 
   public loggedUser!: string;

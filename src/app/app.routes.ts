@@ -7,6 +7,7 @@ import { RechercheParEquipeComponent } from './recherche-par-equipe/recherche-pa
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { joueurGuard } from './joueur.guard';
+import { ListePostesComponent } from './liste-postes/liste-postes.component';
 
 export const routes: Routes = [
   { path: 'joueurs', component: JoueursComponent },
@@ -14,6 +15,8 @@ export const routes: Routes = [
   { path: 'updateJoueur/:id', component: UpdateJoueurComponent, canActivate: [joueurGuard] },
   { path: 'rechercheParPoste', component: RechercheParPosteComponent },
   { path: 'rechercheParEquipe', component: RechercheParEquipeComponent },
+  { path: 'listePostes', component: ListePostesComponent },
+  { path: 'listeCategories', component: ListePostesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'app-forbidden', component: ForbiddenComponent },
   { path: '', redirectTo: 'joueurs', pathMatch: 'full' }
