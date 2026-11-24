@@ -25,16 +25,22 @@ export class UpdateJoueurComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.postes = this.joueurService.listePostes();
-    this.currentJoueur = this.joueurService.consulterJoueur(
+    this.joueurService.listePostes().subscribe(posts => {
+      console.log(posts);
+      this.postes = posts._embedded.postes;
+    });
+    this.joueurService.consulterJoueur(
       Number(this.activatedRoute.snapshot.params['id'])
-    );
-    this.updatedIdPoste = this.currentJoueur.poste?.idPoste!;
+    ).subscribe(j => {
+      this.currentJoueur = j;
+      this.updatedIdPoste = this.currentJoueur.poste?.idPoste!;
+    });
   }
 
   updateJoueur(): void {
-    this.currentJoueur.poste = this.joueurService.consulterPoste(this.updatedIdPoste);
-    this.joueurService.updateJoueur(this.currentJoueur);
-    this.router.navigate(['joueurs']);
+    this.currentJoueur.poste = this.postes.find(p => p.idPoste == this.updatedIdPoste);
+    this.joueurService.updateJoueur(this.currentJoueur).subscribe(j => {
+      this.router.navigate(['joueurs']);
+    });
   }
 }

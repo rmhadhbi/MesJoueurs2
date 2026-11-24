@@ -19,6 +19,8 @@ export class RechercheParEquipeComponent implements OnInit {
   constructor(private joueurService: JoueurService) {}
 
   ngOnInit(): void {
-    this.joueurs = this.joueurService.listeJoueurs();
+    this.joueurService.listeJoueurs().subscribe(joueurs => {
+      this.joueurs = joueurs;
+    });
   }
 }

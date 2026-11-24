@@ -15,16 +15,22 @@ export class RechercheParPosteComponent implements OnInit {
 
   joueurs: Joueur[] = [];
   postes: Poste[] = [];
-  idPoste = 0;                             // 0 = tous les postes
+  idPoste = 0;
 
   constructor(private joueurService: JoueurService) {}
 
   ngOnInit(): void {
-    this.postes = this.joueurService.listePostes();
-    this.joueurs = this.joueurService.listeJoueurs();
+    this.joueurService.listePostes().subscribe(posts => {
+      this.postes = posts._embedded.postes;
+    });
+    this.joueurService.listeJoueurs().subscribe(joueurs => {
+      this.joueurs = joueurs;
+    });
   }
 
   onChange(): void {
-    this.joueurs = this.joueurService.rechercherParPoste(this.idPoste);
+    this.joueurService.rechercherParPoste(this.idPoste).subscribe(joueurs => {
+      this.joueurs = joueurs;
+    });
   }
 }

@@ -25,16 +25,20 @@ export class AjouterJoueurComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.postes = this.joueurService.listePostes();
-    if (this.postes.length > 0) {
-      this.newIdPoste = this.postes[0].idPoste!;
-    }
+    this.joueurService.listePostes().subscribe(posts => {
+      console.log(posts);
+      this.postes = posts._embedded.postes;
+      if (this.postes.length > 0) {
+        this.newIdPoste = this.postes[0].idPoste!;
+      }
+    });
   }
 
   addJoueur(): void {
-    this.newJoueurs.poste = this.joueurService.consulterPoste(this.newIdPoste);
-    this.joueurService.ajouterJoueur(this.newJoueurs);
-    this.newJoueurs = new Joueur();
-    this.router.navigate(['/joueurs']);  
+    this.newJoueurs.poste = this.postes.find(p => p.idPoste == this.newIdPoste);
+    this.joueurService.ajouterJoueur(this.newJoueurs).subscribe(j => {
+      console.log(j);
+      this.router.navigate(['/joueurs']);
+    });
   }
 }

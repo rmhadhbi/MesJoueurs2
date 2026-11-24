@@ -9,7 +9,7 @@ export class AuthService {
 
   users: User[] = [
     { "username": "admin", "password": "123", "roles": ['ADMIN'] },
-    { "username": "rayen", "password": "1212", "roles": ['USER'] }
+    { "username": "rayen", "password": "123", "roles": ['USER'] }
   ];
 
   public loggedUser!: string;
@@ -30,7 +30,7 @@ export class AuthService {
   SignIn(user: User): Boolean {
     let validUser: Boolean = false;
     this.users.forEach((curUser) => {
-      if (user.username == curUser.username && user.password == curUser.password) {
+      if (user.username === curUser.username && user.password === curUser.password) {
         validUser = true;
         this.loggedUser = curUser.username;
         this.isloggedIn = true;
@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   isAdmin(): Boolean {
-    if (!this.roles) // this.roles== undefined
+    if (!this.roles)
       return false;
     return (this.roles.indexOf('ADMIN') > -1);
   }
@@ -56,7 +56,7 @@ export class AuthService {
 
   getUserRoles(username: string) {
     this.users.forEach((curUser) => {
-      if (curUser.username == username) {
+      if (curUser.username === username) {
         this.roles = curUser.roles;
       }
     });

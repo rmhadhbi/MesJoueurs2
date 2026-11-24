@@ -14,7 +14,7 @@ import { UpdatePosteComponent } from '../update-poste/update-poste.component';
 })
 export class ListePostesComponent implements OnInit {
 
-  postes!: Poste[];
+  postes: Poste[] = [];
   updatedPoste: Poste = { idPoste: 0, nomPoste: '' };
   ajout: boolean = true;
 
@@ -25,17 +25,22 @@ export class ListePostesComponent implements OnInit {
   }
 
   chargerPostes() {
-    this.postes = this.joueurService.listePostes();
+    this.joueurService.listePostes().subscribe(posts => {
+      this.postes = posts._embedded.postes;
+    });
   }
 
   posteUpdated(poste: Poste) {
     console.log("Poste updated event", poste);
     if (this.ajout) {
-      this.joueurService.ajouterPoste(poste);
+      this.joueurService.ajouterPoste(poste).subscribe(() => {
+        this.chargerPostes();
+      });
     } else {
-      this.joueurService.updatePoste(poste);
+      this.joueurService.updatePoste(poste).subscribe(() => {
+        this.chargerPostes();
+      });
     }
-    this.chargerPostes();
     this.ajout = true;
     this.updatedPoste = { idPoste: 0, nomPoste: '' };
   }

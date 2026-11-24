@@ -23,13 +23,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    let isloggedin: string;
-    let loggedUser: string;
-    isloggedin = localStorage.getItem('isloggedIn')!;
-    loggedUser = localStorage.getItem('loggedUser')!;
-    if (isloggedin != "true" || !loggedUser)
+    let isloggedin: string | null;
+    let loggedUser: string | null;
+    isloggedin = localStorage.getItem('isloggedIn');
+    loggedUser = localStorage.getItem('loggedUser');
+    if (isloggedin != "true" || !loggedUser) {
       this.router.navigate(['/login']);
-    else
+    } else {
       this.authService.setLoggedUserFromLocalStorage(loggedUser);
+    }
   }
 }

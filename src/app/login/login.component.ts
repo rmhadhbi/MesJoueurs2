@@ -23,12 +23,12 @@ export class LoginComponent {
   ) { }
 
   onLoggedin() {
-    console.log(this.user);
     let isValidUser: Boolean = this.authService.SignIn(this.user);
-    if (isValidUser)
+    if (isValidUser) {
       this.router.navigate(['/']);
-    else
+    } else {
       this.erreur = 1;
+    }
   }
 
 }

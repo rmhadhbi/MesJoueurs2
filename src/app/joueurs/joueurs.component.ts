@@ -22,13 +22,21 @@ export class JoueursComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.joueurs = this.joueurService.listeJoueurs();
+    this.chargerJoueurs();
+  }
+
+  chargerJoueurs(): void {
+    this.joueurService.listeJoueurs().subscribe(joueurs => {
+      this.joueurs = joueurs;
+    });
   }
 
   supprimerJoueur(j: Joueur): void {
     const conf = confirm('Etes-vous sûr ?');
     if (conf) {
-      this.joueurService.supprimerJoueur(j);
+      this.joueurService.supprimerJoueur(j.cin!).subscribe(() => {
+        this.chargerJoueurs();
+      });
     }
   }
 }
