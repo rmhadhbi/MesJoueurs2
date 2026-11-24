@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Joueur } from './model/Joueurs.model';
 import { Poste } from './model/poste.model';
 import { PosteWrapper } from './model/posteWrapped.model';
@@ -15,6 +16,14 @@ const httpOptions = {
 export class JoueurService {
   apiURL: string = 'http://localhost:8082/joueurs/api';
   apiURLPoste: string = 'http://localhost:8082/joueurs/cat';
+
+  // Postes par défaut si le backend est éteint
+  private defaultPostes: Poste[] = [
+    { idPoste: 1, nomPoste: 'Gardien' },
+    { idPoste: 2, nomPoste: 'Défenseur' },
+    { idPoste: 3, nomPoste: 'Milieu' },
+    { idPoste: 4, nomPoste: 'Attaquant' }
+  ];
 
   constructor(private http: HttpClient) { }
 
@@ -41,12 +50,16 @@ export class JoueurService {
   }
 
   listePostes(): Observable<PosteWrapper> {
-    return this.http.get<PosteWrapper>(this.apiURLPoste);
+    return this.http.get<PosteWrapper>(this.apiURLPoste).pipe(
+      catchError(() => of({ _embedded: { postes: this.defaultPostes } }))
+    );
   }
 
   consulterPoste(id: number): Observable<Poste> {
     const url = `${this.apiURLPoste}/${id}`;
-    return this.http.get<Poste>(url);
+    return this.http.get<Poste>(url).pipe(
+      catchError(() => of(this.defaultPostes.find(p => p.idPoste == id)!))
+    );
   }
 
   ajouterPoste(p: Poste): Observable<Poste> {

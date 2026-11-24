@@ -25,20 +25,34 @@ export class AjouterJoueurComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.joueurService.listePostes().subscribe(posts => {
-      console.log(posts);
-      this.postes = posts._embedded.postes;
-      if (this.postes.length > 0) {
-        this.newIdPoste = this.postes[0].idPoste!;
+    this.joueurService.listePostes().subscribe({
+      next: (posts) => {
+        if (posts && posts._embedded && posts._embedded.postes) {
+          this.postes = posts._embedded.postes;
+        } else if (Array.isArray(posts)) {
+          this.postes = posts;
+        }
+        if (this.postes.length > 0) {
+          this.newIdPoste = this.postes[0].idPoste!;
+        }
+      },
+      error: (err) => {
+        console.error("Erreur chargement postes", err);
       }
     });
   }
 
   addJoueur(): void {
     this.newJoueurs.poste = this.postes.find(p => p.idPoste == this.newIdPoste);
-    this.joueurService.ajouterJoueur(this.newJoueurs).subscribe(j => {
-      console.log(j);
-      this.router.navigate(['/joueurs']);
+    this.joueurService.ajouterJoueur(this.newJoueurs).subscribe({
+      next: (j) => {
+        console.log("Joueur ajouté avec succès:", j);
+        this.router.navigate(['/joueurs']);
+      },
+      error: (err) => {
+        console.error("Erreur ajout joueur", err);
+        this.router.navigate(['/joueurs']);
+      }
     });
   }
 }
